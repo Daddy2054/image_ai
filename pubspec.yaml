@@ -1,0 +1,60 @@
+name: image_ai
+description: "Generating image with DALL-E."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # https://pub.dev/packages/flutter_riverpod
+  flutter_riverpod: ^2.3.6
+  # https://pub.dev/packages/riverpod_annotation/
+  riverpod_annotation: ^2.1.1
+  # https://pub.dev/packages/freezed_annotation/install
+  freezed_annotation: ^2.2.0
+  # https://pub.dev/packages/json_annotation
+  json_annotation: ^4.8.1 
+  # https://pub.dev/packages/multiple_result/
+  multiple_result: ^5.0.0  
+  # https://pub.dev/packages/dio
+  dio: ^5.1.2
+  # https://pub.dev/packages/dio_http_formatter
+  dio_http_formatter: ^3.1.0
+  # https://pub.dev/packages/retrofit/
+  retrofit: ^4.0.1
+  # https://pub.dev/packages/envied
+  envied: ^0.3.0+3
+  # https://pub.dev/packages/isar
+  isar: ^3.1.0+1
+  # https://pub.dev/packages/isar_flutter_libs
+  isar_flutter_libs: ^3.1.0+1
+  # https://pub.dev/packages/path_provider/install
+  path_provider: ^2.0.15  
+  # https://pub.dev/packages/jiffy/install
+  jiffy: ^6.2.1
+  # https://pub.dev/packages/flex_color_scheme
+  flex_color_scheme: ^7.1.2
+  # https://pub.dev/packages/image_gallery_saver
+  image_gallery_saver: '^2.0.1'
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1  
+  build_runner: ^2.4.4  
+  freezed: ^2.3.4  
+  riverpod_generator: ^2.2.3
+  json_serializable: '^6.7.0'
+  envied_generator: ^0.3.0+3
+  retrofit_generator: '>=7.0.1'
+  isar_generator: ^3.1.0+1
+  custom_lint:
+  riverpod_lint:
+  
+
+flutter:
+  uses-material-design: true
