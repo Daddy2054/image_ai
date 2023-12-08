@@ -1,11 +1,11 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/local/db/isar_db.dart';
 
-void main() async{
-
-    WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
   final container = ProviderContainer();
   final db = container.read(isarDbProvider);
@@ -24,8 +24,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
+    return MaterialApp(
+      theme: FlexThemeData.light(
+        scheme: FlexScheme.redWine,
+        useMaterial3: true,
+        useMaterial3ErrorColors: true,
+      ),
+      darkTheme: FlexThemeData.dark(
+        scheme: FlexScheme.redWine,
+        useMaterial3: true,
+        useMaterial3ErrorColors: true,
+      ),
+      themeMode: ThemeMode.system,
+      home: const Scaffold(
         body: Center(
           child: Text('Hello World!'),
         ),
