@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
-  runApp(const ProviderScope(child: MainApp()));
+import 'core/local/db/isar_db.dart';
+
+void main() async{
+
+    WidgetsFlutterBinding.ensureInitialized();
+
+  final container = ProviderContainer();
+  final db = container.read(isarDbProvider);
+  await db.openDb();
+
+  runApp(
+    ProviderScope(
+      parent: container,
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
