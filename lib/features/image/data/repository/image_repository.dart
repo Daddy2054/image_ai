@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 
+import '../../../../common/exception/failure.dart';
 import '../../../../core/local/db/isar_provider.dart';
 import '../../../../core/local/entity/image_entity.dart';
 import '../api/image_api_service.dart';
@@ -36,8 +37,11 @@ final class ImageRepository implements IImageRepository {
       final response = await _imageApiService.generateImage(body);
 
       return response;
-    } on DioException catch (_) {
-      rethrow;
+    } on DioException catch (e) {
+      throw Failure(
+        message: e.response?.data['message'].toString() ??
+            'Something went wrong: ${e.error} : ${e.response?.statusCode}',
+      );
     }
   }
 
@@ -53,7 +57,7 @@ final class ImageRepository implements IImageRepository {
         yield* result;
       }
     } on IsarError catch (e, s) {
-      rethrow;
+      throw Failure(message: e.message, stackTrace: s);
     }
   }
 
