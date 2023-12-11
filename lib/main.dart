@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/local/db/isar_db.dart';
+import 'features/image/presentation/ui/image_list_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,11 +37,7 @@ class MainApp extends StatelessWidget {
         useMaterial3ErrorColors: true,
       ),
       themeMode: ThemeMode.system,
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      home: const ImageListScreen(),
     );
   }
 }
