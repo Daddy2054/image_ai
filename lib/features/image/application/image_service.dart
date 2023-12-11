@@ -2,16 +2,27 @@
 
 import 'dart:convert';
 
-import 'package:image_ai/common/exception/failure.dart';
-import 'package:image_ai/common/extension/date_time_formatter.dart';
-import 'package:image_ai/common/extension/int_to_date_time.dart';
-import 'package:image_ai/core/local/entity/image_entity.dart';
-import 'package:image_ai/features/image/application/iimage_service.dart';
-import 'package:image_ai/features/image/data/dto/image_response.dart';
-import 'package:image_ai/features/image/data/repository/iimage_repository.dart';
-import 'package:image_ai/features/image/domain/image_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:multiple_result/multiple_result.dart';
+
+import '../../../common/exception/failure.dart';
+import '../../../common/extension/date_time_formatter.dart';
+import '../../../common/extension/int_to_date_time.dart';
+import '../../../core/local/entity/image_entity.dart';
+import '../data/dto/image_response.dart';
+import '../data/repository/iimage_repository.dart';
+import '../data/repository/image_repository.dart';
+import '../domain/image_model.dart';
+import 'iimage_service.dart';
+
+final imageServiceProvider = Provider<IIMageService>((ref) {
+
+  final imageRepository = ref.watch(imageRepositoryProvider);
+
+  return ImageService(imageRepository: imageRepository);
+  
+});
 
 final class ImageService implements IIMageService {
   final IImageRepository _imageRepository;
