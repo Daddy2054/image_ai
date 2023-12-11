@@ -23,7 +23,7 @@ class ImageController extends AutoDisposeNotifier<ImageState> {
       "prompt": description,
       "n": 1,
       "size": "1024x1024",
-      "response_formate":"b64_json"
+      "response_format":"b64_json"
     };
 
     final result = await ref.read(imageServiceProvider)

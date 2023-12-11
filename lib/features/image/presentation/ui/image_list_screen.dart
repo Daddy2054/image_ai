@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../controller/image_controller.dart';
+import 'image_generation_screen.dart';
 
 class ImageListScreen extends ConsumerStatefulWidget {
   const ImageListScreen({Key? key}) : super(key: key);
@@ -69,6 +70,21 @@ class _ImageListScreenState extends ConsumerState<ImageListScreen> {
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          //Invalidates the state of the provider, causing it to refresh.
+          ref.invalidate(imageControllerProvider);
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const ImageGenerationScreen(),
+            ),
+          );
+        },
+        label: const Text('Image'),
+        icon: const Icon(Icons.add_a_photo),
       ),
     );
   }
