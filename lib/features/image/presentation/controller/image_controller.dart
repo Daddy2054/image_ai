@@ -52,7 +52,6 @@ class ImageController extends AutoDisposeNotifier<ImageState> {
 
     result.listen((event) { 
       state = state.copyWith(
-        isLoading: false,
         imageModels: AsyncData(event)
       );
     });

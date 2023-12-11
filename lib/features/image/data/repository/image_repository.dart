@@ -53,9 +53,7 @@ final class ImageRepository implements IImageRepository {
           .anyId()
           .watch(fireImmediately: true);
 
-      if (result != null) {
-        yield* result;
-      }
+      yield* result ?? Stream<List<ImageEntity>>.value([]);
     } on IsarError catch (e, s) {
       throw Failure(message: e.message, stackTrace: s);
     }
