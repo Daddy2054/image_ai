@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,74 +15,60 @@ import '../domain/image_model.dart';
 import 'iimage_service.dart';
 
 final imageServiceProvider = Provider<IIMageService>((ref) {
-
   final imageRepository = ref.watch(imageRepositoryProvider);
 
   return ImageService(imageRepository: imageRepository);
-  
 });
 
 final class ImageService implements IIMageService {
   final IImageRepository _imageRepository;
 
-  ImageService({
-    required IImageRepository imageRepository
-  }): _imageRepository = imageRepository;
+  ImageService({required IImageRepository imageRepository})
+      : _imageRepository = imageRepository;
 
   @override
-  Future<Result<ImageModel, Failure>> generateImage(Map<String, dynamic> body) async {
-
+  Future<Result<ImageModel, Failure>> generateImage(
+      Map<String, dynamic> body) async {
     try {
-
       final response = await _imageRepository.generateImage(body);
-      
-      await writeToDb<ImageEntity>(_mapToImageEntity(response));      
 
+      await writeToDb<ImageEntity>(_mapToImageEntity(response));
       return Success(_mapToImageModel(response));
-      
     } on Failure catch (e) {
       return Error(e);
     }
-    
   }
 
   @override
   Stream<List<ImageModel>> listenImageEntity() async* {
-
     try {
-
-      final entities = _imageRepository.listenImageEntity().map((event) => event);
-      final model = entities.map((event) => _mapToImageModelFromImageEntity(event ?? []));
+      final entities =
+          _imageRepository.listenImageEntity().map((event) => event);
+      final model =
+          entities.map((event) => _mapToImageModelFromImageEntity(event ?? []));
 
       yield* model;
-      
     } on Failure catch (_) {
       rethrow;
     }
-    
   }
 
   @override
   Future<int?> writeToDb<T>(T value) async {
-
     try {
-
       final result = await _imageRepository.writeToDb(value);
 
       return result;
-      
     } on Failure catch (_) {
-      rethrow;  
+      rethrow;
     }
-    
   }
-  
 
   List<ImageModel> _mapToImageModelFromImageEntity(List<ImageEntity> entity) {
     return entity.map((e) {
       return ImageModel(
-        image: base64Decode(e.image ?? ''), 
-        dateTime: e.dateTime.toString(), 
+        image: base64Decode(e.image ?? ''),
+        dateTime: e.dateTime.toString(),
         timeLapsed: Jiffy.parse(e.timeStamp?.toIso8601String() ?? '').fromNow(),
       );
     }).toList();
@@ -92,9 +76,10 @@ final class ImageService implements IIMageService {
 
   ImageModel _mapToImageModel(ImageResponse response) {
     return ImageModel(
-      image: base64Decode(response.data.first.base64), 
-      dateTime: response.created.toDateTime().toDateTimeString(), 
-      timeLapsed: Jiffy.parse(response.created.toDateTime().toIso8601String()).fromNow(),
+      image: base64Decode(response.data.first.base64),
+      dateTime: response.created.toDateTime().toDateTimeString(),
+      timeLapsed: Jiffy.parse(response.created.toDateTime().toIso8601String())
+          .fromNow(),
     );
   }
 

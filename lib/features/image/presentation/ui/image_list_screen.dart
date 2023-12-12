@@ -74,7 +74,7 @@ class _ImageListScreenState extends ConsumerState<ImageListScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           //Invalidates the state of the provider, causing it to refresh.
-          ref.invalidate(imageControllerProvider);
+        //  ref.invalidate(imageControllerProvider);
 
           Navigator.push(
             context,

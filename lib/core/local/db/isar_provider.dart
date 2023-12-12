@@ -4,7 +4,7 @@ import 'package:isar/isar.dart';
 
 final isarProvider = Provider<Isar?>((ref) {
   
-  if (Isar.instanceNames.isEmpty) {
+  if (Isar.instanceNames.isNotEmpty) {
     return Isar.getInstance();
   }
 
