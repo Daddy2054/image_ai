@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_ai/features/image/presentation/ui/widget/pinch_to_zoom.dart';
 import 'package:image_ai/features/image/presentation/ui/widget/zoomable_image_widget.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 import '../controller/image_controller.dart';
 import 'image_generation_screen.dart';
@@ -60,6 +62,12 @@ class _ImageListScreenState extends ConsumerState<ImageListScreen> {
                         children: [
                           Row(
                             children: [
+                              IconButton(
+                                onPressed: () {
+                                  _saveToGallery(image.image);
+                                },
+                                icon: const Icon(Icons.download),
+                              ),
                               const Spacer(),
                               Text(image.dateTime),
                             ],
@@ -99,5 +107,19 @@ class _ImageListScreenState extends ConsumerState<ImageListScreen> {
         icon: const Icon(Icons.add_a_photo),
       ),
     );
+  }
+
+  void _saveToGallery(Uint8List imageBytes) async {
+    final result = await ImageGallerySaver.saveImage(imageBytes);
+
+    if (result['isSuccess'] == true) {
+      _showSnackbar('Image saved to gallery succesfully');
+    } else {
+      _showSnackbar('Something went wrong , please try again');
+    }
+  }
+
+  void _showSnackbar(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
   }
 }
