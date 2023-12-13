@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_ai/features/image/presentation/ui/widget/pinch_to_zoom.dart';
 
 import '../controller/image_controller.dart';
 import 'image_generation_screen.dart';
@@ -37,26 +38,34 @@ class _ImageListScreenState extends ConsumerState<ImageListScreen> {
               itemBuilder: (context, index) {
                 final image = data[index];
 
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: Theme.of(context).colorScheme.outline,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder:(_)=>PinchToZoom(image: image.image)),
+                    );
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Spacer(),
-                            Text(image.dateTime),
-                          ],
-                        ),
-                        Image.memory(image.image),
-                        Text(image.timeLapsed),
-                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Spacer(),
+                              Text(image.dateTime),
+                            ],
+                          ),
+                          Image.memory(image.image),
+                          Text(image.timeLapsed),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -74,7 +83,7 @@ class _ImageListScreenState extends ConsumerState<ImageListScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           //Invalidates the state of the provider, causing it to refresh.
-        //  ref.invalidate(imageControllerProvider);
+          //  ref.invalidate(imageControllerProvider);
 
           Navigator.push(
             context,
