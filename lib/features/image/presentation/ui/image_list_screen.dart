@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_ai/features/image/presentation/ui/widget/pinch_to_zoom.dart';
+import 'package:image_ai/features/image/presentation/ui/widget/zoomable_image_widget.dart';
 
 import '../controller/image_controller.dart';
 import 'image_generation_screen.dart';
@@ -42,7 +43,8 @@ class _ImageListScreenState extends ConsumerState<ImageListScreen> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder:(_)=>PinchToZoom(image: image.image)),
+                      MaterialPageRoute(
+                          builder: (_) => PinchToZoom(image: image.image)),
                     );
                   },
                   child: Card(
@@ -62,7 +64,8 @@ class _ImageListScreenState extends ConsumerState<ImageListScreen> {
                               Text(image.dateTime),
                             ],
                           ),
-                          Image.memory(image.image),
+                          ZoomableImageWidget(image: image.image),
+                          // Image.memory(image.image),
                           Text(image.timeLapsed),
                         ],
                       ),
